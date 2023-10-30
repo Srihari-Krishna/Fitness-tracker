@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+
+body{
+    background-color: antiquewhite;
+   /* background-image: url("C:/Srihari/programming/fitness-nutrition/CSS/images/gym3.jpg"); */
+}
+.navbar {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ .dashboard-title {
+   
+    text-align: center;
+    font-weight: bold;
+    margin-top: 80px;
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.box-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px;
+    margin-top:8rem;
+    align-items: flex-end; /* Align items at the bottom */
+}
+
+.box {
+    text-align: center;
+    padding: 40px; /* Increase the padding to make the boxes larger */
+    border-radius: 10px;
+    font-size: 20px; /* Increase the font size for better readability */
+    cursor: pointer;
+}
+
+.red {
+    background-color: #FF5733;
+    color: #fff;
+}
+
+.blue {
+    background-color: #33B5E5;
+    color: #fff;
+}
+
+.green {
+    background-color: #77D065;
+    color: #fff;
+}
+
+.yellow {
+    background-color: #FFD700;
+    color: #fff;
+}
+
+.purple {
+    background-color: #9C27B0;
+    color: #fff;
+}
+
+.orange {
+    background-color: #FF9800;
+    color: #fff;
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        class Dashboard extends React.Component {
+    render() {
+        return (
+            <div>
+                <nav className="navbar">
+                    <a href="index.html">Home</a>
+                    <a href="#about-us">About Us</a>
+                    <a href="login.html">Register</a>
+                </nav>
+                <h1 className="dashboard-title">User Dashboard</h1>
+                <div className="box-container">
+                    <div className="box red">Track your workout</div>
+                    <div className="box blue">Track calories</div>
+                    <div className="box green"><a href="workouts.html">Workouts</a></div>
+                    <div className="box yellow">Healthy food</div>
+                    <div className="box purple">Motivation</div>
+                    <div className="box orange">Blog</div>
+                </div>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <Dashboard />,
+    document.getElementById('root')
+);
+
+    </script>
+</body>
+</html>

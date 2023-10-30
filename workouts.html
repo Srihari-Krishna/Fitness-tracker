@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workouts</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    .exercise-container {
+        margin: 20px;
+        padding: 20px;
+        border: 2px solid #333;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    #exercise-name {
+        font-size: 18px;
+        text-decoration: underline;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    #title{
+        margin-bottom: 7rem;
+    }
+
+    #fact{
+        font-size: 16px;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="exercise-container">
+        <h1 id="title">Workout of the day</h1>
+        <p id="exercise-name">Exercise: Loading...</p>
+        <img id="exercise-image" src="placeholder.jpg" alt="Exercise Image"><br>
+        <p id="fact"></p>
+    </div>
+
+
+    <script>
+        const exercises = [
+    { name: 'Barbell Hip thrust', imageUrl: 'C:/Srihari/programming/fitness-nutrition/CSS/images/workout1.jpg' ,fact:'This is a barbell hip thrust'},
+    { name: 'Bear Crawl', imageUrl: 'C:/Srihari/programming/fitness-nutrition/CSS/images/workout2.jpg' ,fact:'This is a bear crawl' },
+    { name: 'Skater Squat', imageUrl: 'C:/Srihari/programming/fitness-nutrition/CSS/images/workout3.jpg' ,fact:'This is a skater squat' },
+    // ...
+];
+
+function selectRandomExercise() {
+    const randomIndex = Math.floor(Math.random() * exercises.length);
+    return exercises[randomIndex];
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const exerciseName = document.getElementById('exercise-name');
+    const exerciseImage = document.getElementById('exercise-image');
+    const exerciseFact = document.getElementById('fact');
+
+    const randomExercise = selectRandomExercise();
+
+    exerciseName.textContent = `Exercise: ${randomExercise.name}`;
+    exerciseImage.src = randomExercise.imageUrl;
+    exerciseFact.textContent = `${randomExercise.fact}`;
+});
+
+    </script>
+</body>
+</html>
