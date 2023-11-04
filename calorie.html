@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <link rel="stylesheet" href="styles2.css"> -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>FitHub</title>
+    <title>Calorie Tracker</title>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65),rgba(0, 0, 0, 0.65)), url("CSS/images/gym_background.jpg");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #calorie-container {
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 45%;
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #calorie-list {
+            list-style-type: none;
+            padding: 0;
+            margin-left: 20px;
+            margin-right: 10px;
+        }
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        /* Navbar styling from here*/
+
+        .banner {
+            width:100%;
+            height:100vh;
+            /* background-image: linear-gradient(rgba(0, 0, 0, 0.65),rgba(0, 0, 0, 0.65)), url("CSS/images/gym_background.jpg"); */    
+            background-size: cover;
+            background-position: center;
+        }
+        .navbar{
+            width: 85%;
+            margin: auto;
+            padding: 35px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo{
+            width: 70px;
+            cursor: pointer;
+        }
+        .navbar ul li{
+            list-style: none;
+            display: inline-block;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .navbar ul li a{
+            text-decoration: none;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        .navbar ul li::after{
+            content: '';
+            height:3px;
+            width: 0;
+            background: #009688;
+            position:absolute;
+            left: 0;
+            bottom: -10px;
+            transition: 0.5s;
+        }
+        .navbar ul li:hover::after{
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="navbar">
+            <img src="CSS/images/logo.svg" class="logo" alt="Fithub">
+            <ul class="nav-links">
+               
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+
+    <!-- <div id="calorie-container">
+        <h1>Calorie Tracker</h1>
+        <input type="text" id="food-name" placeholder="Food Item">
+        <input type="number" id="calorie-amount" placeholder="Calories">
+        <button onclick="addFood()">Add Item</button>
+        <ul id="calorie-list"></ul>
+        <p>Total Calories: <span id="total-calories">0</span></p>
+    </div> --> 
+    <div id="calorie-container"></div>
+
+    <script type="text/babel">
+        class CalorieTracker extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    foodName: '',
+                    calorieAmount: '',
+                    calorieList: [],
+                    totalCalories: 0,
+                };
+            }
+
+            addFood = () => {
+                const { foodName, calorieAmount, calorieList, totalCalories } = this.state;
+
+                if (foodName === "" || isNaN(calorieAmount)) {
+                    alert("Please enter valid values for food item and calories.");
+                    return;
+                }
+
+                const newItem = {
+                    foodName: foodName,
+                    calorieAmount: calorieAmount,
+                };
+
+                const updatedCalorieList = [...calorieList, newItem];
+                const updatedTotalCalories = totalCalories + calorieAmount;
+
+                this.setState({
+                    foodName: '',
+                    calorieAmount: '',
+                    calorieList: updatedCalorieList,
+                    totalCalories: updatedTotalCalories,
+                });
+            };
+
+            removeFood = (item) => {
+                const { calorieList, totalCalories } = this.state;
+
+                const updatedCalorieList = calorieList.filter((i) => i !== item);
+                const updatedTotalCalories = totalCalories - item.calorieAmount;
+
+                this.setState({
+                    calorieList: updatedCalorieList,
+                    totalCalories: updatedTotalCalories,
+                });
+            };
+
+            render() {
+                const { foodName, calorieAmount, calorieList, totalCalories } = this.state;
+
+                return (
+                    <div>
+                        <h1>Calorie Tracker</h1>
+                        <input
+                            type="text"
+                            value={foodName}
+                            placeholder="Food Item"
+                            onChange={(e) => this.setState({ foodName: e.target.value })}
+                        />
+                        <input
+                            type="number"
+                            value={calorieAmount}
+                            placeholder="Calories"
+                            onChange={(e) => this.setState({ calorieAmount: parseInt(e.target.value, 10) })}
+                        />
+                        <button onClick={this.addFood}>Add Item</button>
+                        <ul>
+                            {calorieList.map((item, index) => (
+                                <li key={index} className="food-item">
+                                    <span>
+                                        {item.foodName} - {item.calorieAmount} calories
+                                    </span>
+                                    <button onClick={() => this.removeFood(item)}>Remove</button>
+                                </li>
+                            ))}
+                        </ul>
+                        <p>Total Calories: <span id="total-calories">{totalCalories}</span></p>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<CalorieTracker />, document.getElementById('calorie-container'));
+    </script>
+</body>
+</html>
